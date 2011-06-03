@@ -62,6 +62,8 @@
 /** Text label used to display achievement description. */
 @property (readonly) UILabel *detailLabel;
 
+@property (nonatomic, assign) BOOL isHiddenAchievement;
+
 //@property (nonatomic, assign) UIViewContentMode displayMode;
 
 #pragma mark -

@@ -19,6 +19,7 @@
 - (UILabel *)textLabel;
 - (UILabel *)detailLabel;
 - (UIImageView *)iconView;
+- (BOOL)isHiddenAchievement;
 
 - (void)setImage:(UIImage *)image;
 @end

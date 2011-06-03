@@ -8,7 +8,6 @@
 
 #import <GameKit/GameKit.h>
 #import "BCAchievementNotificationView.h"
-//#import "BCAchievementNotificationCenter.h"
 
 @implementation BCAchievementNotificationView
 
@@ -21,25 +20,28 @@
 //@synthesize title;
 @synthesize textLabel;
 //@synthesize displayMode;
+@synthesize isHiddenAchievement;
 
 #pragma mark -
 
 - (id)initWithFrame:(CGRect)aFrame achievementDescription:(GKAchievementDescription *)anAchievement
 {
-	if (self = [self initWithFrame:aFrame])
+	if ((self = [self initWithFrame:aFrame]))
 	{
 		// setter defined below to populate subviews with info
 		self.achievementDescription = anAchievement;
+        self.isHiddenAchievement = anAchievement.hidden;
 	}
 	return self;
 }
 
 - (id)initWithFrame:(CGRect)aFrame title:(NSString *)aTitle message:(NSString *)aMessage
 {
-    if (self = [self initWithFrame:aFrame])
+    if ((self = [self initWithFrame:aFrame]))
     {
 		self.textLabel.text = aTitle;
 		self.detailLabel.text = aMessage;
+        self.isHiddenAchievement = NO;
     }
     return self;
 }
@@ -113,6 +115,10 @@
 	{
 		[self setImage:self.achievementDescription.image];
 	}
+    else
+    {
+        //[self setImage:[GKAchievementDescription placeholderCompletedAchievementImage]];
+    }
 }
 
 #pragma mark -

@@ -46,6 +46,8 @@
 
 @property (nonatomic, assign) Class viewClass;
 
+@property (nonatomic, assign) BOOL playSounds;
+
 /**
  * Returns a reference to the singleton BCAchievementHandler.
  * @return a single BCAchievementHandler.

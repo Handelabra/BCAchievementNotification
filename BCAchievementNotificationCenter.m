@@ -9,6 +9,8 @@
 #import <GameKit/GameKit.h>
 #import "BCAchievementNotificationCenter.h"
 #import "BCAchievementNotificationView.h"
+#import <QuartzCore/QuartzCore.h>
+#import "BuiltinDataSoundManager.h"
 
 #define kBCAchievementDefaultSize   CGSizeMake(284.0f, 52.0f)
 #define kBCAchievementViewPadding 10.0f
@@ -62,6 +64,28 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 												  [_containerView removeFromSuperview];
 										  }];
 					 }];
+    
+	if (self.playSounds)
+	{
+		// Play a sound if one exists
+        NSString *filename = @"achievement.caf";
+        
+        if ([notification isHiddenAchievement])
+        {
+            filename = @"achievement-hidden.caf";
+        }
+		
+		// Play the sound on the background thread
+		dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+		dispatch_async(queue, ^{
+			[[BuiltinDataSoundManager sharedBuiltinDataSoundManager] playSoundFile:filename];
+		});
+	}
+    
+    // VoiceOver support.
+    UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification,
+                                    [NSString stringWithFormat:NSLocalizedString(@"Achievement unlocked, %1$@, %2$@", @"Achievement accessibility announcement."),
+                                        [notification textLabel].text, [notification detailLabel].text]);
 }
 
 - (CGRect)rectForRect:(CGRect)rect withinRect:(CGRect)bigRect withMode:(UIViewContentMode)mode
@@ -122,7 +146,7 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 		case UIViewContentModeTop:
 		case UIViewContentModeTopLeft:
 		case UIViewContentModeTopRight:
-			result.origin.y -= (aFrame.size.height + kBCAchievementViewPadding);
+			result.origin.y -= (aFrame.size.height + kBCAchievementViewPadding*2);
 			break;
 		case UIViewContentModeBottom:
 		case UIViewContentModeBottomLeft:
@@ -292,6 +316,7 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 @synthesize viewDisplayMode;
 @synthesize defaultViewSize;
 @synthesize viewClass;
+@synthesize playSounds;
 
 #pragma mark -
 
@@ -305,6 +330,8 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 {
 	if ((self = [super init]))
 	{
+		self.playSounds = YES;
+		
 		_topView = [[UIApplication sharedApplication] keyWindow];
 		self.viewDisplayMode = UIViewContentModeTop;
 		self.defaultViewSize = kBCAchievementDefaultSize;
