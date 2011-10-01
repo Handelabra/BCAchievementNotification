@@ -223,12 +223,12 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 {
 	//[self showTitle];
 	
-	UIDeviceOrientation o = [[UIApplication sharedApplication] statusBarOrientation];
+	UIInterfaceOrientation o = [[UIApplication sharedApplication] statusBarOrientation];
 	CGFloat angle = 0;
 	switch (o) {
-		case UIDeviceOrientationLandscapeLeft: angle = 90; break;
-		case UIDeviceOrientationLandscapeRight: angle = -90; break;
-		case UIDeviceOrientationPortraitUpsideDown: angle = 180; break;
+		case UIInterfaceOrientationLandscapeLeft: angle = 90; break;
+		case UIInterfaceOrientationLandscapeRight: angle = -90; break;
+		case UIInterfaceOrientationPortraitUpsideDown: angle = 180; break;
 		default: break;
 	}
 	
@@ -248,7 +248,7 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 	
 	// Reset the transform so we can set the size
 	_containerView.layer.affineTransform = CGAffineTransformIdentity;
-	_containerView.frame = (CGRect){0,0,f.size};
+	_containerView.frame = (CGRect){{0,0},f.size};
 	
 	// Revert to the previous transform for correct animation
 	_containerView.layer.affineTransform = previousTransform;
@@ -260,18 +260,18 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 	_containerView.layer.affineTransform = newTransform;
 	
 	// Fix the view origin
-	_containerView.frame = (CGRect){f.origin.x,f.origin.y,_containerView.frame.size};
+	_containerView.frame = (CGRect){{f.origin.x,f.origin.y},_containerView.frame.size};
     [UIView commitAnimations];
 }
 
 - (void)setupDefaultFrame
 {
-	UIDeviceOrientation o = [[UIApplication sharedApplication] statusBarOrientation];
+	UIInterfaceOrientation o = [[UIApplication sharedApplication] statusBarOrientation];
 	CGFloat angle = 0;
 	switch (o) {
-		case UIDeviceOrientationLandscapeLeft: angle = 90; break;
-		case UIDeviceOrientationLandscapeRight: angle = -90; break;
-		case UIDeviceOrientationPortraitUpsideDown: angle = 180; break;
+		case UIInterfaceOrientationLandscapeLeft: angle = 90; break;
+		case UIInterfaceOrientationLandscapeRight: angle = -90; break;
+		case UIInterfaceOrientationPortraitUpsideDown: angle = 180; break;
 		default: break;
 	}
 	
@@ -289,7 +289,7 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 	CGAffineTransform newTransform = CGAffineTransformMakeRotation(angle * M_PI / 180.0);
 	
 	_containerView.layer.affineTransform = CGAffineTransformIdentity;
-	_containerView.frame = (CGRect){0,0,f.size};
+	_containerView.frame = (CGRect){{0,0},f.size};
 	
 	// Revert to the previous transform for correct animation
 	_containerView.layer.affineTransform = previousTransform;
@@ -301,7 +301,7 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 	_containerView.layer.affineTransform = newTransform;
 	
 	// Fix the view origin
-	_containerView.frame = (CGRect){f.origin.x,f.origin.y,_containerView.frame.size};
+	_containerView.frame = (CGRect){{f.origin.x,f.origin.y},_containerView.frame.size};
 //    [UIView commitAnimations];
 }
 
@@ -375,12 +375,12 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 
 + (CGRect)containerRect
 {
-	UIDeviceOrientation o = [[UIApplication sharedApplication] statusBarOrientation];
+	UIInterfaceOrientation o = [[UIApplication sharedApplication] statusBarOrientation];
 	
 	CGRect f = [[UIScreen mainScreen] applicationFrame];
 	
 	// Swap the frame height and width if necessary
- 	if (UIDeviceOrientationIsLandscape(o)) {
+ 	if (UIInterfaceOrientationIsLandscape(o)) {
 		CGFloat t;
 		t = f.size.width;
 		f.size.width = f.size.height;
