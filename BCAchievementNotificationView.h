@@ -44,7 +44,7 @@
 }
 
 /** Description of achievement earned. setting this will automatically set approrpiate UI with title, description and image. */
-@property (nonatomic, retain) GKAchievementDescription *achievementDescription;
+@property (nonatomic) GKAchievementDescription *achievementDescription;
 
 // decided against these in favor of table cell style API of accessing the special subviews
 ///** Optional custom achievement message. */
@@ -54,7 +54,7 @@
 
 /** Stretchable background view. */
 // TODO: these views should be readonly outside of ourselves, similar to UITableViewCell's imageView etc., except allow backgroundView maybe to be swapped?
-@property (nonatomic, retain) UIView *backgroundView;
+@property (nonatomic) UIView *backgroundView;
 /** Logo that is displayed on the left. */
 @property (readonly) UIImageView *iconView;
 /** Text label used to display achievement title. */

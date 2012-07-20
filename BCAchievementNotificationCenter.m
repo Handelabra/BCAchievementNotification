@@ -54,7 +54,7 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 										  animations:^{
 											  notification.frame = [self startFrameForFrame:notification.frame];
 										  } 
-										  completion:^(BOOL finished) {
+										  completion:^(BOOL finished2) {
 											  [_queue removeObjectAtIndex:0];
 											  if ([_queue count])
 											  {
@@ -363,13 +363,6 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
     return self;
 }
 
-- (void)dealloc
-{
-	[_containerView release];
-    [_queue release];
-    [image release];
-    [super dealloc];
-}
 
 #pragma mark -
 
@@ -401,7 +394,7 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 - (void)notifyWithAchievementDescription:(GKAchievementDescription *)achievement
 {
 	CGRect frame = CGRectMake(0, 0, self.defaultViewSize.width, self.defaultViewSize.height);
-    UIView<BCAchievementViewProtocol> *notification = [[[viewClass alloc] initWithFrame:frame achievementDescription:achievement] autorelease];
+    UIView<BCAchievementViewProtocol> *notification = [[viewClass alloc] initWithFrame:frame achievementDescription:achievement];
 	((UIImageView *)[notification backgroundView]).image = self.defaultBackgroundImage;
 //	notification.displayMode = self.viewDisplayMode;
 	//[notification resetFrameToStart];
@@ -412,7 +405,7 @@ static BCAchievementNotificationCenter *defaultHandler = nil;
 - (void)notifyWithTitle:(NSString *)title message:(NSString *)message image:(UIImage *)anImage
 {
 	CGRect frame = CGRectMake(0, 0, self.defaultViewSize.width, self.defaultViewSize.height);
-    UIView<BCAchievementViewProtocol> *notification = [[[viewClass alloc] initWithFrame:frame title:title message:message] autorelease];
+    UIView<BCAchievementViewProtocol> *notification = [[viewClass alloc] initWithFrame:frame title:title message:message];
 	((UIImageView *)[notification backgroundView]).image = self.defaultBackgroundImage;
 	if(anImage)
 		[notification setImage:anImage];

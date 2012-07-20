@@ -59,7 +59,6 @@
         //tBackground.image = backgroundStretch;
         self.backgroundView = tBackground;
         self.opaque = NO;
-        [tBackground release];
         [self addSubview:self.backgroundView];
 
         CGRect r1 = kBCAchievementText1;
@@ -88,25 +87,9 @@
     return self;
 }
 
-- (void)dealloc
-{
-	[iconView release];
-    
-    [achievementDescription release];
-    [backgroundView release];
-    [detailLabel release];
-    [iconView release];
-//    [message release];
-    [textLabel release];
-//    [title release];
-    
-    [super dealloc];
-}
 
 - (void)setAchievementDescription:(GKAchievementDescription *)description
 {
-	[description retain];
-	[achievementDescription release];
 	achievementDescription = description;
 	
 	self.textLabel.text = self.achievementDescription.title;

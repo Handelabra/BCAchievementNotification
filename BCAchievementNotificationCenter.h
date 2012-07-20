@@ -33,8 +33,8 @@
 }
 
 /** Logo to display in notifications. */
-@property (nonatomic, retain) UIImage *image;
-@property (nonatomic, retain) UIImage *defaultBackgroundImage;
+@property (nonatomic) UIImage *image;
+@property (nonatomic) UIImage *defaultBackgroundImage;
 /**
  * View content mode value to control where the views will show on the screen, defaults to top 
  */
